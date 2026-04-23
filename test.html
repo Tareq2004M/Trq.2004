@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tariq Portfolio</title>
+<style>
+/* ... (نفس التنسيقات السابقة بدون تغيير) ... */
+body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:black; color:white; overflow:hidden; }
+canvas{ position:fixed; top:0; left:0; z-index:-1; }
+nav{ position:fixed; top:15px; width:100%; display:flex; justify-content:center; gap:8px; z-index:10; flex-wrap: wrap; padding: 0 10px; }
+nav button{ background:rgba(34,197,94,0.15); border:1px solid #22c55e; color:white; padding:6px 10px; border-radius:8px; cursor:pointer; transition:0.3s; font-size: 13px; }
+nav button:hover{ background:#22c55e; }
+.page{ height:100vh; width:100%; position:absolute; top:0; left:100%; opacity:0; display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center; transition:0.8s ease-in-out; overflow-y: auto; }
+.page.active{ left:0; opacity:1; }
+.card{ background:rgba(17,24,39,0.9); padding:20px; margin:10px; border-radius:15px; border: 1px solid rgba(34,197,94,0.3); max-width: 80%; }
+.btn{ display: inline-block; padding:10px 25px; background:#22c55e; border:none; border-radius:10px; cursor:pointer; color:white; margin-top:15px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+.btn:hover{ background: #16a34a; transform: scale(1.05); }
+.btn-pdf { background: #ef4444; }
+.grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:15px; padding: 20px; }
+.cert-img { width: 100%; max-width: 250px; height: auto; border-radius: 8px; margin-bottom: 10px; border: 2px solid #22c55e; }
+.hint { position: fixed; bottom: 10px; right: 10px; font-size: 12px; color: rgba(34,197,94,0.5); pointer-events: none; }
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+<div class="hint">استخدم Space أو الأسهم للتنقل ⌨️</div>
+
+<nav>
+  <button onclick="go(0)">الرئيسية</button>
+  <button onclick="go(1)">عني</button>
+  <button onclick="go(2)">المهارات</button>
+  <button onclick="go(3)">الدورات</button>
+  <button onclick="go(4)">المشاريع</button>
+  <button onclick="go(5)">تواصل</button>
+  <button onclick="go(6)">إنجازات</button>
+  <button onclick="go(7)">هوايات</button>
+  <button onclick="go(8)">طموحات</button>
+  <button onclick="go(9)">أخرى</button>
+</nav>
+
+<div class="page active">
+  <h1 style="font-size: 3rem;">👨‍💻 </h1>
+  <p style="font-size: 1.2rem; color: #22c55e;">My Profile | ملف التعريف</p>
+  <button class="btn" onclick="go(1)">ابدأ الاستكشاف</button>
+</div>
+
+<div class="page">
+  <h1>📌 عني</h1>
+  <div class="card">
+    <p>أسمي طارق، من مواليد عام 2004. أنا مبرمج ومصمم بارع، ومهندس حاسوب وشبكات.</p>
+    <a href="CV.pdf" target="_blank" class="btn btn-pdf">
+      📄 عرض السيرة الذاتية (PDF)
+    </a>
+  </div>
+</div>
+
+<div class="page">
+  <h1>🚀 المهارات</h1>
+  <div class="grid">
+    <div class="card">Python</div>
+    <div class="card">Java</div>
+    <div class="card">Networking</div>
+    <div class="card">Data Analysis</div>
+  </div>
+</div>
+
+<div class="page">
+  <h1>📚 الدورات والشهادات</h1>
+  <div class="grid">
+    <div class="card">
+      <img src="data-analysis.jpg" alt="Data Analysis" class="cert-img">
+      <br>Data Analysis Using Python
+    </div>
+    <div class="card">
+      <img src="cyber-security.jpg" alt="Cyber Security" class="cert-img">
+      <br>Cyber Security
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <h1>🧑‍💼 المشاريع</h1>
+  <div class="card">
+    <h3>تحليل البيانات واستخلاص الرؤى (Python)</h3>
+    <p>مشروع متكامل لتحويل البيانات الخام إلى رؤى وقرارات باستخدام مكتبات Pandas و Matplotlib.</p>
+    <a class="btn" target="_blank" href="https://colab.research.google.com/drive/10UyvWXaRQx4N2_5JvrT7bg3G0Z3_w5sc?usp=sharing">رابط المشروع</a>          
+  </div>
+</div>
+
+<div class="page">
+  <h1>📞 تواصل معي</h1>
+  <div class="card">
+    <p>📧 Email: t.allihyani@gmail.com</p>
+    <p>📱 0531922665</p>
+    <p>🔗 LinkedIn: linkedin.com/in/tariq</p>
+  </div>
+</div>
+
+<div class="page"><h1>🏆 إنجازات</h1><div class="card"><p>محتوى الإنجازات قريباً...</p></div></div>
+<div class="page"><h1>🎨 الهوايات</h1><div class="card"><p>محتوى الهوايات قريباً...</p></div></div>
+<div class="page"><h1>🎯 طموحات</h1><div class="card"><p>محتوى الطموحات قريباً...</p></div></div>
+<div class="page"><h1>✨ أخرى</h1><div class="card"><p>محتوى إضافي قريباً...</p></div></div>
+
+<script>
+/* ... (كود الـ JavaScript كما هو بدون تغيير) ... */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+const letters="01TARIQABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize=14; const columns=canvas.width/fontSize; const drops=[];
+for(let i=0;i<columns;i++) drops[i]=1;
+function draw(){
+  ctx.fillStyle="rgba(0,0,0,0.08)"; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#22c55e"; ctx.font=fontSize+"px monospace";
+  for(let i=0;i<drops.length;i++){
+    let text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(draw, 40);
+let pages = document.querySelectorAll(".page");
+let currentIndex = 0;
+function go(index){
+  if (index >= pages.length) index = 0;
+  if (index < 0) index = pages.length - 1;
+  currentIndex = index;
+  pages.forEach(p => p.classList.remove("active"));
+  pages[currentIndex].classList.add("active");
+}
+window.addEventListener('keydown', (event) => {
+  if (event.code === "Space" || event.code === "ArrowLeft") { event.preventDefault(); go(currentIndex + 1); }
+  else if (event.code === "ArrowRight") { event.preventDefault(); go(currentIndex - 1); }
+});
+</script>
+</body>
+</html>
