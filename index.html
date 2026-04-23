@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>TRQ Profile</title>
 <style>
-/* إعدادات عامة لجميع الأجهزة */
-body { 
+
+  body { 
   margin:0; font-family:'Segoe UI', Roboto, sans-serif; 
   background:black; color:white; overflow:hidden; 
   touch-action: none; 
 }
 canvas { position:fixed; top:0; left:0; z-index:-1; }
 
-/* قائمة التنقل - مرنة لجميع الشاشات */
 nav { 
   position:fixed; top:10px; width:100%; 
   display:flex; justify-content:center; 
@@ -26,7 +25,6 @@ nav button {
 }
 nav button:hover { background: #22c55e; }
 
-/* نظام الصفحات */
 .page { 
   height:100vh; width:100%; position:absolute; 
   top:0; left:100%; opacity:0; 
@@ -38,15 +36,13 @@ nav button:hover { background: #22c55e; }
 }
 .page.active { left:0; opacity:1; }
 
-/* البطاقات المرنة */
 .card { 
   background:rgba(17,24,39,0.9); padding:25px; 
   margin:10px; border-radius:20px; 
   border: 1px solid rgba(34,197,94,0.3); 
-  width: 100%; max-width: 600px; /* تتوسع في التابلت */
+  width: 100%; max-width: 600px; 
 }
 
-/* شبكة المهارات والشهادات - متغيرة حسب الشاشة */
 .grid { 
   display: grid; 
   gap: 15px; width: 100%; max-width: 800px;
@@ -65,20 +61,17 @@ nav button:hover { background: #22c55e; }
   text-decoration: none; font-weight: bold;
 }
 
-/* --- تعديلات التابلت والجوال (Responsive) --- */
 
-/* للجوالات الصغيرة */
 @media (max-width: 480px) {
   nav button { padding: 6px 10px; font-size: 12px; }
   h1 { font-size: 1.8rem !important; }
-  .grid { grid-template-columns: 1fr 1fr; } /* عمودين في الجوال */
+  .grid { grid-template-columns: 1fr 1fr; } 
 }
 
-/* للتابلت (iPad/Android Tablets) */
 @media (min-width: 481px) and (max-width: 1024px) {
   h1 { font-size: 2.5rem !important; }
   .card { max-width: 80%; }
-  .grid { grid-template-columns: repeat(3, 1fr); } /* 3 أعمدة في التابلت */
+  .grid { grid-template-columns: repeat(3, 1fr); } 
 }
 
 .hint { 
@@ -124,8 +117,8 @@ nav button:hover { background: #22c55e; }
   <div class="grid">
     <div class="card">Python</div>
     <div class="card">Java</div>
-    <div class="card">Networking</div>
-    <div class="card">Analysis</div>
+    <div class="card">Network</div>
+    <div class="card">Data Analysis</div>
   </div>
 </div>
 
@@ -134,7 +127,7 @@ nav button:hover { background: #22c55e; }
   <div class="grid">
     <div class="card">
       <img src="Data Analysis Using Python.jpg" class="cert-img" alt="Data Analysis">
-      <p>تحليل البيانات</p>
+      <p>تحليل البيانات بلغة الباثون</p>
     </div>
     <div class="card">
       <img src="Cyper Security.jpg" class="cert-img" alt="Cyber Security">
@@ -146,8 +139,8 @@ nav button:hover { background: #22c55e; }
 <div class="page">
   <h1>🧑‍💼 المشاريع المميزة</h1>
   <div class="card">
-    <h3>نظام نقل الملفات TCP</h3>
-    <p>تطوير نظام قياس كفاءة الشبكة لنقل البيانات بين الأجهزة.</p>
+    <h3>تحليل البيانات واستخلاص الرؤى (Python)</h3>
+    <p>مشروع متكامل لتحويل البيانات الخام إلى رؤى وقرارات باستخدام مكتبات Pandas و Matplotlib.</p>
     <a class="btn" target="_blank" href="https://colab.research.google.com/drive/10UyvWXaRQx4N2_5JvrT7bg3G0Z3_w5sc?usp=sharing">معاينة الكود</a>
   </div>
 </div>
@@ -163,7 +156,6 @@ nav button:hover { background: #22c55e; }
 </div>
 
 <script>
-/* خلفية الماتريكس - تتكيف مع حجم الشاشة */
 const canvas=document.getElementById("matrix");
 const ctx=canvas.getContext("2d");
 function resize() {
@@ -191,7 +183,6 @@ function draw(){
 }
 setInterval(draw, 50);
 
-/* نظام الصفحات */
 let pages = document.querySelectorAll(".page");
 let currentIndex = 0;
 function go(index){
@@ -202,7 +193,6 @@ function go(index){
   pages[currentIndex].classList.add("active");
 }
 
-/* دعم اللمس والسحب للتابلت والجوال */
 let touchstartX = 0;
 let touchendX = 0;
 document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX );
@@ -212,7 +202,6 @@ document.addEventListener('touchend', e => {
   if (touchendX > touchstartX + 70) go(currentIndex - 1);
 });
 
-/* دعم الكيبورد */
 window.addEventListener('keydown', (e) => {
   if (e.code === "Space" || e.code === "ArrowLeft") go(currentIndex + 1);
   else if (e.code === "ArrowRight") go(currentIndex - 1);
