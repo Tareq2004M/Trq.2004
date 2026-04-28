@@ -5,115 +5,158 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>TRQ Profile</title>
 <style>
+  :root {
+    --primary: #22c55e;
+    --bg-dark: #0a0a0a;
+    --card-bg: rgba(17, 24, 39, 0.8);
+    --transition-speed: 0.5s;
+  }
 
   body { 
-  margin:0; font-family:'Segoe UI', Roboto, sans-serif; 
-  background:black; color:white; overflow:hidden; 
-  touch-action: none; 
-}
-canvas { position:fixed; top:0; left:0; z-index:-1; }
+    margin:0; font-family:'Segoe UI', Roboto, -apple-system, sans-serif; 
+    background: var(--bg-dark); color:white; overflow:hidden; 
+    touch-action: pan-y;
+  }
 
-nav { 
-  position:fixed; top:10px; width:100%; 
-  display:flex; justify-content:center; 
-  gap:8px; z-index:10; flex-wrap: wrap; padding: 10px;
-}
-nav button { 
-  background:rgba(34,197,94,0.15); border:1px solid #22c55e; 
-  color:white; padding:10px 15px; border-radius:10px; 
-  cursor:pointer; font-size: 14px; transition: 0.3s;
-}
-nav button:hover { background: #22c55e; }
+  canvas { position:fixed; top:0; left:0; z-index:-1; opacity: 0.6; }
 
-.page { 
-  height:100vh; width:100%; position:absolute; 
-  top:0; left:100%; opacity:0; 
-  display:flex; justify-content:center; align-items:center; 
-  flex-direction:column; text-align:center; 
-  transition:0.6s cubic-bezier(0.4, 0, 0.2, 1); 
-  overflow-y: auto; padding: 80px 20px 40px 20px; /* مساحة للقائمة وللهامش السفلي */
-  box-sizing: border-box;
-}
-.page.active { left:0; opacity:1; }
+  nav { 
+    position:fixed; top:0; width:100%; 
+    display:flex; justify-content:center; 
+    gap:10px; z-index:100; flex-wrap: wrap; padding: 15px 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  }
 
-.card { 
-  background:rgba(17,24,39,0.9); padding:25px; 
-  margin:10px; border-radius:20px; 
-  border: 1px solid rgba(34,197,94,0.3); 
-  width: 100%; max-width: 600px; 
-}
+  nav button { 
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(34, 197, 94, 0.3); 
+    color: #ccc; padding: 8px 16px; border-radius: 20px; 
+    cursor: pointer; font-size: 13px; transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
 
-.grid { 
-  display: grid; 
-  gap: 15px; width: 100%; max-width: 800px;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-}
+  nav button:hover, nav button.active-nav { 
+    background: var(--primary); 
+    color: black; 
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
 
-.cert-img { 
-  width: 100%; max-width: 250px; height: auto; 
-  border-radius: 12px; border: 2px solid #22c55e; 
-}
+  .page { 
+    height: 100vh; width: 100%; position: absolute; 
+    top: 0; left: 0; opacity: 0; pointer-events: none;
+    display: flex; justify-content: center; align-items: center; 
+    flex-direction: column; text-align: center; 
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
+    transform: translateY(20px) scale(0.95);
+    overflow-y: auto; padding: 100px 20px 60px 20px;
+    box-sizing: border-box;
+  }
 
-.btn { 
-  display: inline-block; padding:12px 30px; 
-  background:#22c55e; border-radius:12px; 
-  color:white; margin-top:20px; 
-  text-decoration: none; font-weight: bold;
-}
+  .page.active { 
+    opacity: 1; 
+    pointer-events: all;
+    transform: translateY(0) scale(1);
+  }
 
+  .card { 
+    background: var(--card-bg); 
+    padding: 30px; 
+    margin: 15px 0; 
+    border-radius: 24px; 
+    border: 1px solid rgba(34, 197, 94, 0.2); 
+    width: 100%; max-width: 650px; 
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+  }
 
-@media (max-width: 480px) {
-  nav button { padding: 6px 10px; font-size: 12px; }
-  h1 { font-size: 1.8rem !important; }
-  .grid { grid-template-columns: 1fr 1fr; } 
-}
+  .card:hover {
+    border-color: var(--primary);
+  }
 
-@media (min-width: 481px) and (max-width: 1024px) {
-  h1 { font-size: 2.5rem !important; }
-  .card { max-width: 80%; }
-  .grid { grid-template-columns: repeat(3, 1fr); } 
-}
+  .grid { 
+    display: grid; 
+    gap: 15px; width: 100%; max-width: 800px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+  }
 
-.hint { 
-  position: fixed; bottom: 15px; width: 100%; 
-  text-align: center; font-size: 12px; 
-  color: rgba(34,197,94,0.6); pointer-events: none; 
-}
+  .skill-item {
+    background: rgba(34, 197, 94, 0.1);
+    padding: 15px; border-radius: 15px;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    font-weight: 500;
+  }
+
+  .cert-img { 
+    width: 100%; max-width: 250px; height: auto; 
+    border-radius: 15px; border: 2px solid var(--primary); 
+    margin-bottom: 15px;
+  }
+
+  .btn { 
+    display: inline-block; padding: 14px 35px; 
+    background: var(--primary); border-radius: 15px; 
+    color: black; margin-top: 20px; 
+    text-decoration: none; font-weight: bold;
+    transition: 0.3s; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  h1 { margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+
+  @media (max-width: 480px) {
+    nav { gap: 5px; padding: 10px 5px; }
+    nav button { padding: 6px 12px; font-size: 11px; }
+    h1 { font-size: 1.8rem !important; }
+    .grid { grid-template-columns: 1fr 1fr; } 
+  }
+
+  .hint { 
+    position: fixed; bottom: 15px; width: 100%; 
+    text-align: center; font-size: 11px; 
+    color: rgba(34, 197, 94, 0.5); pointer-events: none; 
+    text-transform: uppercase; letter-spacing: 1px;
+  }
 </style>
 </head>
 <body>
 
 <canvas id="matrix"></canvas>
-<div class="hint">اسحب لليمين/اليسار للتنقل عبر الأجهزة 📱💻</div>
+<div class="hint">اسحب لليمين أو اليسار للتنقل ↔️</div>
 
 <nav id="mainNav">
-  <button onclick="go(0)">الرئيسية</button>
-  <button onclick="go(1)">عني</button>
-  <button onclick="go(2)">المهارات</button>
-  <button onclick="go(3)">الشهادات</button>
-  <button onclick="go(4)">المشاريع</button>
-  <button onclick="go(5)">تواصل</button>
+  <button onclick="go(0)" class="nav-btn active-nav">الرئيسية</button>
+  <button onclick="go(1)" class="nav-btn">عني</button>
+  <button onclick="go(2)" class="nav-btn">المهارات</button>
+  <button onclick="go(3)" class="nav-btn">الشهادات</button>
+  <button onclick="go(4)" class="nav-btn">المشاريع</button>
+  <button onclick="go(5)" class="nav-btn">تواصل</button>
 </nav>
 
 <div class="page active">
-  <h1 style="font-size: 3.5rem;">👨‍💻 </h1>
-  <p style="font-size: 1.3rem; color: #22c55e;">My Profile | ملف التعريف</p>
-  <button class="btn" onclick="go(1)">ابدأ الرحلة</button>
+  <div style="font-size: 5rem; margin-bottom: 10px;">👨‍💻</div>
+    <p style="font-size: 1.3rem; color: #22c55e;">My Profile | ملف التعريف</p>
+  <button class="btn" onclick="go(1)">استكشاف الملف الشخصي</button>
 </div>
 
 <div class="page">
-  <h1>📌 عني</h1>
+  <h1>📌 من أنا؟</h1>
   <div class="card">
-    <p>أسمي طارق، من مواليد عام 2004. أنا مبرمج ومصمم بارع، ومهندس حاسوب وشبكات.</p>
-    <p>بفضل شغفي القوي بالتكنولوجيا، أستمتع بحل المشكلات وابتكار حلول فعالة ومبدعة.</p>
-    <p>تشمل خبرتي كلاً من تطوير البرمجيات وإدارة الشبكات، وأنا دائم السعي لتوسيع آفاق معرفتي وتعزيز مهاراتي.</p>
-    <p>أؤمن بقيمة التعاون وألتزم بتقديم نتائج عالية الجودة في كل مشروع أعمل عليه.</p>
-    <a href="CV.pdf" target="_blank" class="btn" style="background:#ef4444;">📥 تحميل الـ CV</a>
+    <p>أنا طارق، مهندس حاسوب وشبكات ومبرمج شغوف من مواليد 2004.</p>
+    <p>أركز على ابتكار حلول تقنية تجمع بين الأداء العالي والتصميم الجذاب. خبرتي تشمل تطوير البرمجيات وإدارة البنية التحتية للشبكات.</p>
+    <p>أؤمن بأن التكنولوجيا وسيلة لحل أعقد المشكلات البشرية، وأسعى دائماً لترك بصمة إيجابية في كل مشروع.</p>
+    <a href="CV.pdf" target="_blank" class="btn" style="background:#ef4444; color: white;">📥 تحميل السيرة الذاتية</a>
   </div>
 </div>
 
 <div class="page">
-  <h1>🚀 المهارات التقنية</h1>
+  <h1> المهارات التقنية</h1>
   <div class="grid">
     <div class="card">Python</div>
     <div class="card">Microdoft Office</div>
@@ -123,88 +166,112 @@ nav button:hover { background: #22c55e; }
   </div>
 </div>
 
+
 <div class="page">
-  <h1>📚 الشهادات والدورات</h1>
-  <div class="grid">
+  <h1>📚 المسار الأكاديمي</h1>
+  <div class="grid" style="max-width: 900px;">
     <div class="card">
       <img src="Data Analysis Using Python.jpg" class="cert-img" alt="Data Analysis">
-      <p>تحليل البيانات بلغة الباثون</p>
+      <h3>تحليل البيانات</h3>
+      <p style="font-size: 0.9rem; color: #aaa;">إتقان استخراج الرؤى باستخدام Python</p>
     </div>
     <div class="card">
       <img src="Cyper Security.jpg" class="cert-img" alt="Cyber Security">
-      <p>الأمن السيبراني</p>
+      <h3>الأمن السيبراني</h3>
+      <p style="font-size: 0.9rem; color: #aaa;">حماية الأنظمة واكتشاف الثغرات</p>
     </div>
   </div>
 </div>
 
 <div class="page">
-  <h1>🧑‍💼 المشاريع المميزة</h1>
+  <h1> أعمالي المختارة</h1>
   <div class="card">
-    <h3>تحليل البيانات واستخلاص الرؤى (Python)</h3>
-    <p>مشروع متكامل لتحويل البيانات الخام إلى رؤى وقرارات باستخدام مكتبات Pandas و Matplotlib.</p>
-    <a class="btn" target="_blank" href="https://colab.research.google.com/drive/10UyvWXaRQx4N2_5JvrT7bg3G0Z3_w5sc?usp=sharing">معاينة الكود</a>
+    <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+    <h3>تحليل البيانات المتقدم (Python)</h3>
+    <p>تطوير نظام متكامل لتحويل البيانات الضخمة إلى رسوم بيانية تفاعلية تساعد في اتخاذ القرار باستخدام Pandas & Plotly.</p>
+    <a class="btn" target="_blank" href="https://colab.research.google.com/drive/10UyvWXaRQx4N2_5JvrT7bg3G0Z3_w5sc?usp=sharing">فحص المشروع</a>
   </div>
 </div>
 
 <div class="page">
   <h1>📞 تواصل معي</h1>
   <div class="card">
-    <p>يسعدني تواصلك معي للعمل على مشاريع تقنية.</p>
-    <p style="direction: ltr;">📧 t.allihyani@gmail.com</p>
-    <p>📱 0531922665</p>
-    <a href="https://www.linkedin.com/in/tariq-allihyani-37920824a" target="_blank" style="color:#22c55e; font-weight:bold; text-decoration:none; display:block; margin-top:10px;">🔗 LinkedIn Profile</a>
+    <p>يسعدني تواصلك معي  .</p>
+    <div style="margin: 20px 0; line-height: 2;">
+      <div style="direction: ltr;">📧 t.allihyani@gmail.com</div>
+      <div>📱 0531922665</div>
+    </div>
+    <a href="https://www.linkedin.com/in/tariq-allihyani-37920824a" target="_blank" class="btn">LinkedIn البروفايل على</a>
   </div>
 </div>
 
 <script>
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+let width, height, columns, drops;
+
 function resize() {
-  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+  columns = Math.floor(width / 20);
+  drops = Array(columns).fill(1);
 }
-window.onresize = resize; resize();
 
-const letters="01TARIQ";
-const fontSize=16; let columns=canvas.width/fontSize; let drops=[];
-function initDrops() {
-  columns=canvas.width/fontSize;
-  for(let i=0;i<columns;i++) drops[i]=1;
-}
-initDrops();
+window.addEventListener('resize', resize);
+resize();
 
-function draw(){
-  ctx.fillStyle="rgba(0,0,0,0.1)"; ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#22c55e"; ctx.font=fontSize+"px monospace";
-  for(let i=0;i<drops.length;i++){
-    let text=letters[Math.floor(Math.random()*letters.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
+const chars = "01TARIQ$#@!%&*";
+function draw() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = "#22c55e";
+  ctx.font = "15px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+    ctx.fillText(text, i * 20, drops[i] * 20);
+    if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
     drops[i]++;
   }
 }
-setInterval(draw, 50);
+setInterval(draw, 33);
 
 let pages = document.querySelectorAll(".page");
+let navBtns = document.querySelectorAll(".nav-btn");
 let currentIndex = 0;
-function go(index){
+let isAnimating = false;
+
+function go(index) {
+  if (isAnimating || index === currentIndex) return;
   if (index >= pages.length) index = 0;
   if (index < 0) index = pages.length - 1;
-  currentIndex = index;
-  pages.forEach(p => p.classList.remove("active"));
-  pages[currentIndex].classList.add("active");
+
+  isAnimating = true;
+  
+  navBtns.forEach(btn => btn.classList.remove("active-nav"));
+  navBtns[index].classList.add("active-nav");
+
+  pages[currentIndex].classList.remove("active");
+  
+  setTimeout(() => {
+    currentIndex = index;
+    pages[currentIndex].classList.add("active");
+    isAnimating = false;
+  }, 100); 
 }
 
 let touchstartX = 0;
-let touchendX = 0;
-document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX );
+document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
 document.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX;
-  if (touchendX < touchstartX - 70) go(currentIndex + 1); 
-  if (touchendX > touchstartX + 70) go(currentIndex - 1);
+  let touchendX = e.changedTouches[0].screenX;
+  if (touchendX < touchstartX - 80) go(currentIndex + 1); // سحب لليسار
+  if (touchendX > touchstartX + 80) go(currentIndex - 1); // سحب لليمين
 });
 
 window.addEventListener('keydown', (e) => {
-  if (e.code === "Space" || e.code === "ArrowLeft") go(currentIndex + 1);
+  if (e.code === "ArrowLeft") go(currentIndex + 1);
   else if (e.code === "ArrowRight") go(currentIndex - 1);
 });
 </script>
