@@ -50,8 +50,9 @@
     flex-direction: column; text-align: center; 
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
     transform: translateY(20px) scale(0.95);
-    overflow-y: auto; padding: 100px 20px 60px 20px;
+    overflow-y: auto; padding: 120px 20px 80px 20px; /* ضبط الحواف العلوية والسفلية لضمان عدم حجب المحتوى */
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; /* دعم التمرير السلس والسريع على هواتف الذكية وجوالات iOS */
   }
 
   .page.active { 
@@ -115,6 +116,7 @@
     nav button { padding: 6px 12px; font-size: 11px; }
     h1 { font-size: 1.8rem !important; }
     .grid { grid-template-columns: 1fr 1fr; } 
+    .page { padding-top: 130px; padding-bottom: 90px; } /* مساحة إضافية لتفادي أزرار القائمة العلوية على الجوال */
   }
 
   .hint { 
@@ -122,13 +124,14 @@
     text-align: center; font-size: 11px; 
     color: rgba(34, 197, 94, 0.5); pointer-events: none; 
     text-transform: uppercase; letter-spacing: 1px;
+    z-index: 10;
   }
 </style>
 </head>
 <body>
 
 <canvas id="matrix"></canvas>
-<div class="hint">اسحب لليمين أو اليسار للتنقل ↔️</div>
+<div class="hint">اسحب لليمين أو اليسار للتنقل ↔️ وقم بالتمرير للأعلى والأسفل لاستكشاف المحتوى ↕️</div>
 
 <nav id="mainNav">
   <button onclick="go(0)" class="nav-btn active-nav">الرئيسية</button>
@@ -279,6 +282,8 @@ function go(index) {
     currentIndex = index;
     pages[currentIndex].classList.add("active");
     isAnimating = false;
+    // إعادة تعيين مستوى التمرير والطلوع لأعلى الصفحة تلقائياً لتسهيل الاستخدام عند تبديل الصفحات
+    pages[currentIndex].scrollTop = 0;
   }, 100); 
 }
 
