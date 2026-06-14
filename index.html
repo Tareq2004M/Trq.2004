@@ -152,6 +152,30 @@
     color: white;
   }
 
+  /* تنسيق قسم الصور المضافة لمختبر الكهرباء والإلكترونيات */
+  .lab-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  .lab-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .lab-gallery img:hover {
+    transform: scale(1.03);
+    border-color: var(--primary);
+  }
+
   h1 { margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
 
   @media (max-width: 480px) {
@@ -215,18 +239,18 @@
 
 <div class="page">
   <h1>🎓 البيئة الأكاديمية والمختبرات العلمية</h1>
-  <div class="grid" style="max-width: 950px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+  <div class="grid" style="max-width: 1100px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
     
     <div class="card" style="margin: 5px; text-align: right;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🏫</div>
       <h3>المسيرة الأكاديمية بالجامعة</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">دراسة تخصص هندسة الحاسب والشبكات، والتركيز على فهم المعمارية الرقمية، أنظمة التشغيل، وإدارة الشبكات وراح اضيف جميع المهام التخصصيه</p>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">دراسة تخصص هندسة الحاسب والشبكات، والتركيز على فهم المعمارية الرقمية، أنظمة التشغيل، وإدارة البنى التحتية المتطورة وفق أحدث المناهج العلمية.</p>
     </div>
 
     <div class="card" style="margin: 5px; text-align: right;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🧪</div>
       <h3> (Network Lab)</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;"> اهنا استعملت برنامج Cisco Packet Tracer لبرمجة الاكواد الشبكات.</p>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">تطبيق عملي مكثف على محاكاة الشبكات باستخدام برمجيات Mininet وبيئات Cisco، وإجراء اختبارات الأداء والكفاءة للأجهزة والبروتوكولات (SDN).</p>
       
       <div class="lab-files-container">
         <div class="lab-category">📁 ملفات ومختبرات المستويات (Lab 0 - Lab 2):</div>
@@ -261,6 +285,19 @@
         <div class="lab-category">🎯 الاختبارات والتقييمات (Exams & Quizzes):</div>
         <a href="Quiz_Tariq.pkt" download class="lab-btn special">Quiz_Tariq.pkt</a>
         <a href="Final Exam.pkt" download class="lab-btn special">Final Exam.pkt</a>
+      </div>
+    </div>
+
+    <div class="card" style="margin: 5px; text-align: right;">
+      <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+      <h3>مختبر الكهرباء والإلكترونيات</h3>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">تطبيق عملي وتصميم الدوائر الكهربائية والإلكترونية، قياس الإشارات وتحليل المكونات الأساسية للأنظمة الرقمية والتماثلية.</p>
+      
+      <div class="lab-gallery">
+        <img src="Lab Elec.png" alt="Lab Elec">
+        <img src="Lab Elect.png" alt="Lab Elect">
+        <img src="Lab Electroni.png" alt="Lab Electroni">
+        <img src="Lab electr.png" alt="Lab electr">
       </div>
     </div>
 
