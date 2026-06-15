@@ -79,10 +79,10 @@
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
     transform: translateY(20px) scale(0.98);
     overflow-y: auto; 
-    padding: 100px 20px 80px 20px; 
+    padding: 90px 20px 90px 20px; /* زيادة مساحة الحشو السفلي لضمان ظهور آخر كرت */
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch; 
-    touch-action: pan-y;
+    touch-action: pan-y; /* يضمن تفعيل التمرير العمودي على الشاشات اللمسية */
   }
 
   .page.active { 
@@ -211,22 +211,24 @@
 
   /* شاشات الجوال والهواتف الذكية */
   @media (max-width: 600px) {
-    h1 { font-size: 1.6rem; }
+    h1 { font-size: 1.6rem; margin-bottom: 10px; }
     .grid { grid-template-columns: 1fr; gap: 12px; } 
-    .page { padding-top: 90px; padding-bottom: 70px; justify-content: flex-start; }
+    .page { padding-top: 85px; padding-bottom: 100px; justify-content: flex-start; }
     .card { padding: 18px; margin: 5px 0; }
     .lab-gallery { grid-template-columns: 1fr; }
     .lab-btn { display: block; text-align: center; margin: 6px 0; } 
+    .cert-img { max-width: 180px; } /* تصغير حجم الصور قليلاً لتوفير مساحة عمودية */
   }
 
   .hint { 
-    position: fixed; bottom: 15px; width: 100%; 
+    position: fixed; bottom: 0; width: 100%; 
     text-align: center; font-size: 11px; 
     color: rgba(34, 197, 94, 0.6); pointer-events: none; 
     text-transform: uppercase; letter-spacing: 1px;
     z-index: 10;
-    background: rgba(10, 10, 10, 0.7);
-    padding: 4px 0;
+    background: rgba(10, 10, 10, 0.85);
+    padding: 6px 0;
+    backdrop-filter: blur(5px);
   }
 </style>
 </head>
@@ -414,7 +416,6 @@ setInterval(draw, 33);
 
 let pages = document.querySelectorAll(".page");
 let navBtns = document.querySelectorAll(".nav-btn");
-let mainNav = document.getElementById("mainNav");
 let currentIndex = 0;
 let isAnimating = false;
 
@@ -428,7 +429,6 @@ function go(index) {
   navBtns.forEach(btn => btn.classList.remove("active-nav"));
   navBtns[index].classList.add("active-nav");
 
-  // تحريك الزر النشط في الـ Nav ليكون ظاهراً دوماً على الجوال
   if(navBtns[index]) {
     navBtns[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
@@ -439,11 +439,10 @@ function go(index) {
     currentIndex = index;
     pages[currentIndex].classList.add("active");
     isAnimating = false;
-    pages[currentIndex].scrollTop = 0; // إعادة التمرير لأعلى الصفحة الجديدة
+    pages[currentIndex].scrollTop = 0; 
   }, 100); 
 }
 
-// تحسين ميزة السحب الجانبي (Swipe) لتعمل بشكل صحيح مع التمرير العمودي للمحتوى الطويل
 let startX = 0, startY = 0;
 document.addEventListener('touchstart', e => {
   startX = e.touches[0].clientX;
@@ -457,12 +456,11 @@ document.addEventListener('touchend', e => {
   let diffX = startX - endX;
   let diffY = startY - endY;
 
-  // التأكد من أن المستخدم سحب أفقياً بوضوح وليس عمودياً للتصفح
   if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
     if (diffX > 0) {
-      go(currentIndex + 1); // سحب لليسار -> الصفحة التالية
+      go(currentIndex + 1); 
     } else {
-      go(currentIndex - 1); // سحب لليمين -> الصفحة السابقة
+      go(currentIndex - 1); 
     }
   }
 }, {passive: true});
