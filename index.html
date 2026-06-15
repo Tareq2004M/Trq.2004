@@ -79,10 +79,10 @@
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
     transform: translateY(20px) scale(0.98);
     overflow-y: auto; 
-    padding: 90px 20px 90px 20px; /* زيادة مساحة الحشو السفلي لضمان ظهور آخر كرت */
+    padding: 85px 20px 120px 20px; /* زيادة الهامش السفلي لضمان ظهور الكرت الأخير بالكامل */
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch; 
-    touch-action: pan-y; /* يضمن تفعيل التمرير العمودي على الشاشات اللمسية */
+    touch-action: pan-y !important; /* إجبار المتصفح على تفعيل التمرير العمودي */
   }
 
   .page.active { 
@@ -103,6 +103,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: border-color 0.3s ease;
     box-sizing: border-box;
+    flex-shrink: 0; /* منع انكماش الكروت وضمان أخذ مساحتها الكاملة */
   }
 
   .card:hover { border-color: var(--primary); }
@@ -213,11 +214,11 @@
   @media (max-width: 600px) {
     h1 { font-size: 1.6rem; margin-bottom: 10px; }
     .grid { grid-template-columns: 1fr; gap: 12px; } 
-    .page { padding-top: 85px; padding-bottom: 100px; justify-content: flex-start; }
+    .page { padding-top: 85px; padding-bottom: 120px; justify-content: flex-start; }
     .card { padding: 18px; margin: 5px 0; }
     .lab-gallery { grid-template-columns: 1fr; }
     .lab-btn { display: block; text-align: center; margin: 6px 0; } 
-    .cert-img { max-width: 180px; } /* تصغير حجم الصور قليلاً لتوفير مساحة عمودية */
+    .cert-img { max-width: 180px; } 
   }
 
   .hint { 
@@ -227,7 +228,7 @@
     text-transform: uppercase; letter-spacing: 1px;
     z-index: 10;
     background: rgba(10, 10, 10, 0.85);
-    padding: 6px 0;
+    padding: 8px 0;
     backdrop-filter: blur(5px);
   }
 </style>
@@ -456,7 +457,7 @@ document.addEventListener('touchend', e => {
   let diffX = startX - endX;
   let diffY = startY - endY;
 
-  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
+  if (Math.abs(diffX) > Math.abs(diffY) * 2 && Math.abs(diffX) > 70) {
     if (diffX > 0) {
       go(currentIndex + 1); 
     } else {
