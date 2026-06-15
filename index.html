@@ -9,30 +9,51 @@
     --primary: #22c55e;
     --bg-dark: #0a0a0a;
     --card-bg: rgba(17, 24, 39, 0.8);
-    --transition-speed: 0.5s;
+    --transition-speed: 0.4s;
   }
 
   body { 
-    margin:0; font-family:'Segoe UI', Roboto, -apple-system, sans-serif; 
-    background: var(--bg-dark); color:white; overflow:hidden; 
-    touch-action: pan-y;
+    margin: 0; 
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+    background: var(--bg-dark); 
+    color: white; 
+    overflow: hidden; 
+    touch-action: none; /* يمنع حركات المتصفح الافتراضية لتسهيل السحب الجانبي */
   }
 
-  canvas { position:fixed; top:0; left:0; z-index:-1; opacity: 0.6; }
+  canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; }
 
   nav { 
-    position:fixed; top:0; width:100%; 
-    display:flex; justify-content:center; 
-    gap:10px; z-index:100; flex-wrap: wrap; padding: 15px 10px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    gap: 8px; 
+    z-index: 100; 
+    flex-wrap: nowrap; /* منع الالتفاف العمودي لجعلها شريطاً أفقياً */
+    overflow-x: auto; /* السماح بالتمرير الأفقي للأزرار على الجوال */
+    padding: 15px 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
   }
+
+  /* إخفاء شريط التمرير الخاص بالقائمة العلوية لمظهر أنيق */
+  nav::-webkit-scrollbar { display: none; }
 
   nav button { 
     background: rgba(255, 255, 255, 0.05); 
     border: 1px solid rgba(34, 197, 94, 0.3); 
-    color: #ccc; padding: 8px 16px; border-radius: 20px; 
-    cursor: pointer; font-size: 13px; transition: all 0.3s ease;
+    color: #ccc; 
+    padding: 8px 14px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    transition: all 0.3s ease;
     backdrop-filter: blur(5px);
+    white-space: nowrap; /* يمنع انقسام النص داخل الزر */
+    flex-shrink: 0;
   }
 
   nav button:hover, nav button.active-nav { 
@@ -44,15 +65,25 @@
   }
 
   .page { 
-    height: 100vh; width: 100%; position: absolute; 
-    top: 0; left: 0; opacity: 0; pointer-events: none;
-    display: flex; justify-content: center; align-items: center; 
-    flex-direction: column; text-align: center; 
+    height: 100vh; 
+    width: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    opacity: 0; 
+    pointer-events: none;
+    display: flex; 
+    justify-content: flex-start; /* يبدأ من الأعلى للسماح بالتمرير للمحتوى الطويل */
+    align-items: center; 
+    flex-direction: column; 
+    text-align: center; 
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
-    transform: translateY(20px) scale(0.95);
-    overflow-y: auto; padding: 120px 20px 80px 20px; /* ضبط الحواف العلوية والسفلية لضمان عدم حجب المحتوى */
+    transform: translateY(20px) scale(0.98);
+    overflow-y: auto; 
+    padding: 100px 20px 80px 20px; 
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch; /* دعم التمرير السلس والسريع على هواتف الذكية وجوالات iOS */
+    -webkit-overflow-scrolling: touch; /* تمرير سلس وسريع على iOS */
+    touch-action: pan-y; /* يسمح بالتمرير العمودي فقط داخل الصفحة */
   }
 
   .page.active { 
@@ -63,53 +94,55 @@
 
   .card { 
     background: var(--card-bg); 
-    padding: 30px; 
-    margin: 15px 0; 
-    border-radius: 24px; 
+    padding: 25px; 
+    margin: 10px 0; 
+    border-radius: 20px; 
     border: 1px solid rgba(34, 197, 94, 0.2); 
-    width: 100%; max-width: 650px; 
+    width: 100%; 
+    max-width: 650px; 
     backdrop-filter: blur(12px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
   }
 
-  .card:hover {
-    border-color: var(--primary);
-  }
+  .card:hover { border-color: var(--primary); }
 
   .grid { 
     display: grid; 
-    gap: 15px; width: 100%; max-width: 800px;
+    gap: 15px; 
+    width: 100%; 
+    max-width: 800px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
-  .skill-item {
-    background: rgba(34, 197, 94, 0.1);
-    padding: 15px; border-radius: 15px;
-    border: 1px solid rgba(34, 197, 94, 0.2);
-    font-weight: 500;
-  }
-
   .cert-img { 
-    width: 100%; max-width: 250px; height: auto; 
-    border-radius: 15px; border: 2px solid var(--primary); 
+    width: 100%; 
+    max-width: 220px; 
+    height: auto; 
+    border-radius: 15px; 
+    border: 2px solid var(--primary); 
     margin-bottom: 15px;
   }
 
   .btn { 
-    display: inline-block; padding: 14px 35px; 
-    background: var(--primary); border-radius: 15px; 
-    color: black; margin-top: 20px; 
-    text-decoration: none; font-weight: bold;
-    transition: 0.3s; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    display: inline-block; 
+    padding: 12px 30px; 
+    background: var(--primary); 
+    border-radius: 12px; 
+    color: black; 
+    margin-top: 15px; 
+    text-decoration: none; 
+    font-weight: bold;
+    transition: 0.3s; 
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
   }
 
   .btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     filter: brightness(1.1);
   }
 
-  /* تنسيق مخصص لأزرار تحميل المختبرات والملفات داخل البطاقة */
   .lab-files-container {
     margin-top: 20px;
     padding-top: 15px;
@@ -126,9 +159,9 @@
 
   .lab-btn {
     display: inline-block;
-    padding: 6px 14px;
+    padding: 6px 12px;
     font-size: 0.8rem;
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(34, 197, 94, 0.1);
     border: 1px solid rgba(34, 197, 94, 0.3);
     color: #e2e8f0;
@@ -152,7 +185,6 @@
     color: white;
   }
 
-  /* تنسيق قسم الصور المضافة لمختبر الكهرباء والإلكترونيات */
   .lab-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -176,22 +208,26 @@
     border-color: var(--primary);
   }
 
-  h1 { margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+  h1 { margin-top: 10px; margin-bottom: 15px; font-weight: 800; font-size: 2.2rem; }
 
-  @media (max-width: 480px) {
-    nav { gap: 5px; padding: 10px 5px; }
-    nav button { padding: 6px 12px; font-size: 11px; }
-    h1 { font-size: 1.8rem !important; }
-    .grid { grid-template-columns: 1fr 1fr; } 
-    .page { padding-top: 130px; padding-bottom: 90px; } /* مساحة إضافية لتفادي أزرار القائمة العلوية على الجوال */
+  /* شاشات الجوال والهواتف الذكية */
+  @media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    .grid { grid-template-columns: 1fr; gap: 12px; } 
+    .page { padding-top: 90px; padding-bottom: 70px; justify-content: flex-start; }
+    .card { padding: 18px; margin: 5px 0; }
+    .lab-gallery { grid-template-columns: 1fr; } /* تحويل صور المختبر لعمود واحد لتصبح واضحة */
+    .lab-btn { display: block; text-align: center; margin: 6px 0; } /* تسهيل النقر على أزرار اللاب */
   }
 
   .hint { 
     position: fixed; bottom: 15px; width: 100%; 
     text-align: center; font-size: 11px; 
-    color: rgba(34, 197, 94, 0.5); pointer-events: none; 
+    color: rgba(34, 197, 94, 0.6); pointer-events: none; 
     text-transform: uppercase; letter-spacing: 1px;
     z-index: 10;
+    background: rgba(10, 10, 10, 0.7);
+    padding: 4px 0;
   }
 </style>
 </head>
@@ -204,53 +240,53 @@
   <button onclick="go(0)" class="nav-btn active-nav">الرئيسية</button>
   <button onclick="go(1)" class="nav-btn">عني</button>
   <button onclick="go(2)" class="nav-btn">المهارات</button>
-  <button onclick="go(3)" class="nav-btn">الجامعه</button>
+  <button onclick="go(3)" class="nav-btn">الجامعة</button>
   <button onclick="go(4)" class="nav-btn">الشهادات</button>
   <button onclick="go(5)" class="nav-btn">المشاريع</button>
   <button onclick="go(6)" class="nav-btn">تواصل</button>
 </nav>
 
-<div class="page active">
-  <div style="font-size: 5rem; margin-bottom: 10px;">👨‍💻</div>
-    <p style="font-size: 1.3rem; color: #22c55e;">My Profile | ملف التعريف</p>
+<div class="page active" style="justify-content: center;">
+  <div style="font-size: 4.5rem; margin-bottom: 10px;">👨‍💻</div>
+  <p style="font-size: 1.3rem; color: #22c55e; margin: 5px 0;">My Profile | ملف التعريف</p>
   <button class="btn" onclick="go(1)">استكشاف الملف الشخصي</button>
 </div>
 
 <div class="page">
   <h1>📌 من أنا؟</h1>
   <div class="card">
-    <p>أنا طارق، مهندس حاسب الي وشبكات مواليد 2004.</p>
-    <p>أركز على ابتكار حلول تقنية تجمع بين الأداء العالي والتصميم الجذاب. خبرتي تشمل تطوير المواقع وانشاء موقع بسيط وعندي بعض المهارات في انشاء المشاريع وإدارة للشبكات.</p>
-    <p>أجاول اطور من مهاراتي واكتسب بعض الخبرات .</p>
+    <p>أنا طارق، مهندس حاسب آلي وشبكات مواليد 2004.</p>
+    <p>أركز على ابتكار حلول تقنية تجمع بين الأداء العالي والتصميم الجذاب. خبرتي تشمل تطوير المواقع وإنشاء مواقع بسيطة، وعندي بعض المهارات في إنشاء المشاريع وإدارة الشبكات.</p>
+    <p>أحاول دائماً تطوير مهاراتي واكتساب خبرات جديدة.</p>
     <a href="CV.pdf" target="_blank" class="btn" style="background:#ef4444; color: white;">📥 تحميل السيرة الذاتية</a>
   </div>
 </div>
 
 <div class="page">
-  <h1> المهارات التقنية</h1>
+  <h1>المهارات التقنية</h1>
   <div class="grid">
-    <div class="card">Python</div>
-    <div class="card">Microdoft Office</div>
-    <div class="card">Network</div>
-    <div class="card">Data Analysis</div>
-    <div class="card">Designer ( Website )</div>
+    <div class="card" style="padding: 15px; margin: 0;">🐍 Python</div>
+    <div class="card" style="padding: 15px; margin: 0;">📊 Microsoft Office</div>
+    <div class="card" style="padding: 15px; margin: 0;">🌐 Network</div>
+    <div class="card" style="padding: 15px; margin: 0;">📈 Data Analysis</div>
+    <div class="card" style="padding: 15px; margin: 0;">💻 Designer (Website)</div>
   </div>
 </div>
 
 <div class="page">
-  <h1>🎓 البيئة الأكاديمية والمختبرات العلمية</h1>
-  <div class="grid" style="max-width: 1400px; width: 95%; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+  <h1>🎓 البيئة الأكاديمية والمختبرات</h1>
+  <div class="grid" style="max-width: 1400px; width: 100%; gap: 20px;">
     
-    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
+    <div class="card" style="margin: 0; text-align: right;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🏫</div>
       <h3>المسيرة الأكاديمية بالجامعة</h3>
       <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">دراسة تخصص هندسة الحاسب والشبكات، والتركيز على فهم المعمارية الرقمية، أنظمة التشغيل، وإدارة البنى التحتية المتطورة وفق أحدث المناهج العلمية.</p>
     </div>
 
-    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
+    <div class="card" style="margin: 0; text-align: right;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🧪</div>
-      <h3> (Network Lab)</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">في مهام الشبكات تعلمت كيفية الارسال والاستقبال وقمة بحماية الشبكات باستعمال Cisco Packet Tracer</p>
+      <h3>مختبر الشبكات (Network Lab)</h3>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">في مهام الشبكات تعلمت كيفية الإرسال والاستقبال وقمت بحماية الشبكات باستعمال Cisco Packet Tracer</p>
       
       <div class="lab-files-container">
         <div class="lab-category">📁 ملفات ومختبرات المستويات (Network 1):</div>
@@ -267,7 +303,6 @@
         <a href="Lab 4 (N E 1).pkt" download class="lab-btn">Lab 4 (1).pkt</a>
         <a href="Lab 6 (N E 1).pka" download class="lab-btn">Lab 6 (1).pka</a>
 
-
         <div class="lab-category">📁 ملفات ومختبرات المستويات المتطورة (Network 2):</div>
         <a href="Lab 1 (N E 2).pka" download class="lab-btn">Lab 1 (2).pka</a>
         <a href="Lab 2 (N E 2).pka" download class="lab-btn">Lab 2 (2).pka</a>
@@ -275,8 +310,7 @@
         <a href="Lab 4 (N E 2).pka" download class="lab-btn">Lab 4 (2).pka</a>
         <a href="Lab 5 (N E 2).pka" download class="lab-btn">Lab 5 (2).pka</a>
 
-
-        <div class="lab-category">📁 ملفات ومختبرات المستويات اخترافيه (Network 3):</div>
+        <div class="lab-category">📁 ملفات ومختبرات مستويات الاحتراف (Network 3):</div>
         <a href="Lab 1 (N E 3).pkt" download class="lab-btn">Lab 1 (3).pkt</a>
         <a href="Lab 2(N E 3).pkt" download class="lab-btn">Lab 2 (3).pkt</a>
         <a href="Lab 3 (N E 3).pkt" download class="lab-btn">Lab 3 (3).pkt</a>
@@ -286,17 +320,16 @@
         <a href="Lab 7(N E 3).pkt" download class="lab-btn">Lab 7.pkt</a>
         <a href="Lab 8(N E 3).pkt" download class="lab-btn">Lab 8.pkt</a>
 
-
         <div class="lab-category">🎯 الاختبارات والتقييمات (Exams & Quizzes):</div>
         <a href="Quiz_Tariq.pkt" download class="lab-btn special">Quiz_Tariq.pkt</a>
         <a href="Final Exam.pkt" download class="lab-btn special">Final Exam.pkt</a>
       </div>
     </div>
 
-    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
+    <div class="card" style="margin: 0; text-align: right;">
       <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
       <h3>مختبر الكهرباء والإلكترونيات</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">طبقت الدوائر الالكترونيه في المعمل واشتغلنا على Board وبعدها تعلمت كيفيتها وتطبيقها بالبرامج الاتفراضيه</p>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">طبقت الدوائر الإلكترونية في المعمل واشتغلنا على البورد (Board) وبعدها تعلمت تفعيلها وتطبيقها بالبرامج الافتراضية.</p>
       
       <div class="lab-gallery">
         <img src="Lab Elec.png" alt="Lab Elec">
@@ -309,16 +342,15 @@
   </div>
 </div>
 
-
 <div class="page">
-  <h1>📚الدورات</h1>
-  <div class="grid" style="max-width: 900px;">
-    <div class="card">
+  <h1>📚 الدورات والشهادات</h1>
+  <div class="grid">
+    <div class="card" style="margin: 0;">
       <img src="Data Analysis Using Python.jpg" class="cert-img" alt="Data Analysis">
       <h3>تحليل البيانات</h3>
       <p style="font-size: 0.9rem; color: #aaa;">إتقان استخراج الرؤى باستخدام Python</p>
     </div>
-    <div class="card">
+    <div class="card" style="margin: 0;">
       <img src="Cyper Security.jpg" class="cert-img" alt="Cyber Security">
       <h3>الأمن السيبراني</h3>
       <p style="font-size: 0.9rem; color: #aaa;">حماية الأنظمة واكتشاف الثغرات</p>
@@ -327,7 +359,7 @@
 </div>
 
 <div class="page">
-  <h1> المشاريع </h1>
+  <h1>المشاريع</h1>
   <div class="card">
     <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
     <h3>تحليل البيانات المتقدم (Python)</h3>
@@ -339,10 +371,10 @@
 <div class="page">
   <h1>📞 تواصل معي</h1>
   <div class="card">
-    <p>يسعدني تواصلك معي  .</p>
+    <p>يسعدني تواصلك معي للعمل أو للاستفسارات.</p>
     <div style="margin: 20px 0; line-height: 2;">
-      <div style="direction: ltr;">📧 t.allihyani@gmail.com</div>
-      <div>📱 0531922665</div>
+      <div style="direction: ltr; font-size: 1.1rem;">📧 t.allihyani@gmail.com</div>
+      <div style="font-size: 1.1rem;">📱 0531922665</div>
     </div>
     <a href="https://www.linkedin.com/in/tariq-allihyani-37920824a" target="_blank" class="btn">LinkedIn</a>
   </div>
@@ -383,6 +415,7 @@ setInterval(draw, 33);
 
 let pages = document.querySelectorAll(".page");
 let navBtns = document.querySelectorAll(".nav-btn");
+let mainNav = document.getElementById("mainNav");
 let currentIndex = 0;
 let isAnimating = false;
 
@@ -396,24 +429,44 @@ function go(index) {
   navBtns.forEach(btn => btn.classList.remove("active-nav"));
   navBtns[index].classList.add("active-nav");
 
+  // تحريك الزر النشط في الـ Nav ليكون ظاهراً دوماً على الجوال
+  if(navBtns[index]) {
+    navBtns[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
   pages[currentIndex].classList.remove("active");
   
   setTimeout(() => {
     currentIndex = index;
     pages[currentIndex].classList.add("active");
     isAnimating = false;
-    // إعادة تعيين مستوى التمرير والطلوع لأعلى الصفحة تلقائياً لتسهيل الاستخدام عند تبديل الصفحات
-    pages[currentIndex].scrollTop = 0;
+    pages[currentIndex].scrollTop = 0; // إعادة التمرير لأعلى الصفحة الجديدة
   }, 100); 
 }
 
-let touchstartX = 0;
-document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
+// تحسين ميزة السحب الجانبي (Swipe) لتعمل بشكل صحيح مع التمرير العمودي للمحتوى الطويل
+let startX = 0, startY = 0;
+document.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}, {passive: true});
+
 document.addEventListener('touchend', e => {
-  let touchendX = e.changedTouches[0].screenX;
-  if (touchendX < touchstartX - 80) go(currentIndex + 1); // سحب لليسار
-  if (touchendX > touchstartX + 80) go(currentIndex - 1); // سحب لليمين
-});
+  let endX = e.changedTouches[0].clientX;
+  let endY = e.changedTouches[0].clientY;
+  
+  let diffX = startX - endX;
+  let diffY = startY - endY;
+
+  // التأكد من أن المستخدم سحب أفقياً بوضوح وليس عمودياً للتصفح
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
+    if (diffX > 0) {
+      go(currentIndex + 1); // سحب لليسار -> الصفحة التالية
+    } else {
+      go(currentIndex - 1); // سحب لليمين -> الصفحة السابقة
+    }
+  }
+}, {passive: true});
 
 window.addEventListener('keydown', (e) => {
   if (e.code === "ArrowLeft") go(currentIndex + 1);
