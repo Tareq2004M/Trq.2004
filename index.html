@@ -50,9 +50,9 @@
     flex-direction: column; text-align: center; 
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
     transform: translateY(20px) scale(0.95);
-    overflow-y: auto; padding: 120px 20px 80px 20px; /* ضبط الحواف العلوية والسفلية لضمان عدم حجب المحتوى */
+    overflow-y: auto; padding: 120px 20px 80px 20px;
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch; /* دعم التمرير السلس والسريع على هواتف الذكية وجوالات iOS */
+    -webkit-overflow-scrolling: touch; 
   }
 
   .page.active { 
@@ -80,7 +80,7 @@
   .grid { 
     display: grid; 
     gap: 15px; width: 100%; max-width: 800px;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   .skill-item {
@@ -109,7 +109,6 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     filter: brightness(1.1);
   }
 
-  /* تنسيق مخصص لأزرار تحميل المختبرات والملفات داخل البطاقة */
   .lab-files-container {
     margin-top: 20px;
     padding-top: 15px;
@@ -152,7 +151,6 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     color: white;
   }
 
-  /* تنسيق قسم الصور المضافة لمختبر الكهرباء والإلكترونيات */
   .lab-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -183,7 +181,7 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     nav button { padding: 6px 12px; font-size: 11px; }
     h1 { font-size: 1.8rem !important; }
     .grid { grid-template-columns: 1fr 1fr; } 
-    .page { padding-top: 130px; padding-bottom: 90px; } /* مساحة إضافية لتفادي أزرار القائمة العلوية على الجوال */
+    .page { padding-top: 130px; padding-bottom: 90px; } 
   }
 
   .hint { 
@@ -221,7 +219,7 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   <div class="card">
     <p>أنا طارق، مهندس حاسب الي وشبكات مواليد 2004.</p>
     <p>أركز على ابتكار حلول تقنية تجمع بين الأداء العالي والتصميم الجذاب. خبرتي تشمل تطوير المواقع وانشاء موقع بسيط وعندي بعض المهارات في انشاء المشاريع وإدارة للشبكات.</p>
-    <p>أؤمن بأن التكنولوجيا وسيلة لحل أعقد المشكلات البشرية، وأسعى دائماً لترك بصمة إيجابية في كل مشروع.</p>
+    <p>أود بتطوير خبراتي واضيف معلومات واكتسب مهارات استثنائيه.</p>
     <a href="CV.pdf" target="_blank" class="btn" style="background:#ef4444; color: white;">📥 تحميل السيرة الذاتية</a>
   </div>
 </div>
@@ -239,18 +237,18 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
 <div class="page">
   <h1>🎓 البيئة الأكاديمية والمختبرات العلمية</h1>
-  <div class="grid" style="max-width: 1100px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+  <div class="grid" style="max-width: 1400px; width: 95%; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
     
-    <div class="card" style="margin: 5px; text-align: right;">
+    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🏫</div>
       <h3>المسيرة الأكاديمية بالجامعة</h3>
       <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">دراسة تخصص هندسة الحاسب والشبكات، والتركيز على فهم المعمارية الرقمية، أنظمة التشغيل، وإدارة البنى التحتية المتطورة وفق أحدث المناهج العلمية.</p>
     </div>
 
-    <div class="card" style="margin: 5px; text-align: right;">
+    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
       <div style="font-size: 2rem; margin-bottom: 10px;">🧪</div>
       <h3> (Network Lab)</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">تطبيق عملي مكثف على محاكاة الشبكات باستخدام برمجيات Mininet وبيئات Cisco، وإجراء اختبارات الأداء والكفاءة للأجهزة والبروتوكولات (SDN).</p>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">في عملي الشبكات استعملنا تطبيق Cisco Packet tracer لتعلم واكتساب مهارات في برمجة وامان الشبكات.</p>
       
       <div class="lab-files-container">
         <div class="lab-category">📁 ملفات ومختبرات المستويات (Lab 0 - Lab 2):</div>
@@ -288,10 +286,10 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       </div>
     </div>
 
-    <div class="card" style="margin: 5px; text-align: right;">
+    <div class="card" style="margin: 0; text-align: right; max-width: 100%;">
       <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
-      <h3>مختبر الكهرباء والإلكترونيات</h3>
-      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">تطبيق عملي وتصميم الدوائر الكهربائية والإلكترونية، قياس الإشارات وتحليل المكونات الأساسية للأنظمة الرقمية والتماثلية.</p>
+      <h3>(Lab Electronic circuits)</h3>
+      <p style="font-size: 0.95rem; color: #ccc; line-height: 1.6;">في الدوائر الالكترونيه استعملنا Tinkercad و LTspice وقمنا بعمل الدوائر الالكترونيه الي بالمعلم وجعلناها افتراضيه </p>
       
       <div class="lab-gallery">
         <img src="Lab Elec.png" alt="Lab Elec">
@@ -397,7 +395,6 @@ function go(index) {
     currentIndex = index;
     pages[currentIndex].classList.add("active");
     isAnimating = false;
-    // إعادة تعيين مستوى التمرير والطلوع لأعلى الصفحة تلقائياً لتسهيل الاستخدام عند تبديل الصفحات
     pages[currentIndex].scrollTop = 0;
   }, 100); 
 }
