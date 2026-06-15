@@ -79,10 +79,10 @@
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1); 
     transform: translateY(20px) scale(0.98);
     overflow-y: auto; 
-    padding: 90px 20px 140px 20px; 
+    padding: 100px 20px 80px 20px; 
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch; 
-    touch-action: pan-y !important;
+    touch-action: pan-y;
   }
 
   .page.active { 
@@ -94,7 +94,7 @@
   .card { 
     background: var(--card-bg); 
     padding: 25px; 
-    margin: 12px 0; 
+    margin: 10px 0; 
     border-radius: 20px; 
     border: 1px solid rgba(34, 197, 94, 0.2); 
     width: 100%; 
@@ -103,38 +103,25 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: border-color 0.3s ease;
     box-sizing: border-box;
-    flex-shrink: 0;
   }
 
   .card:hover { border-color: var(--primary); }
 
-  /* تحويل الهيكل إلى Flexbox عمودي مرن على الجوال لمنع الاختفاء والقطع */
   .grid { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px; 
+    display: grid; 
+    gap: 15px; 
     width: 100%; 
-    max-width: 650px;
-  }
-
-  /* للشاشات الكبيرة المتسعة يعود لنظام العرض الجانبي */
-  @media (min-width: 768px) {
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      max-width: 850px;
-    }
+    max-width: 800px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   .cert-img { 
     width: 100%; 
-    max-width: 280px; 
+    max-width: 220px; 
     height: auto; 
     border-radius: 15px; 
     border: 2px solid var(--primary); 
     margin-bottom: 15px;
-    display: inline-block;
   }
 
   .btn { 
@@ -224,23 +211,22 @@
 
   /* شاشات الجوال والهواتف الذكية */
   @media (max-width: 600px) {
-    h1 { font-size: 1.6rem; margin-bottom: 10px; }
-    .page { padding-top: 85px; padding-bottom: 140px; justify-content: flex-start; }
-    .card { padding: 20px; margin: 8px 0; }
+    h1 { font-size: 1.6rem; }
+    .grid { grid-template-columns: 1fr; gap: 12px; } 
+    .page { padding-top: 90px; padding-bottom: 70px; justify-content: flex-start; }
+    .card { padding: 18px; margin: 5px 0; }
     .lab-gallery { grid-template-columns: 1fr; }
     .lab-btn { display: block; text-align: center; margin: 6px 0; } 
-    .cert-img { max-width: 220px; } 
   }
 
   .hint { 
-    position: fixed; bottom: 0; width: 100%; 
+    position: fixed; bottom: 15px; width: 100%; 
     text-align: center; font-size: 11px; 
     color: rgba(34, 197, 94, 0.6); pointer-events: none; 
     text-transform: uppercase; letter-spacing: 1px;
     z-index: 10;
-    background: rgba(10, 10, 10, 0.85);
-    padding: 8px 0;
-    backdrop-filter: blur(5px);
+    background: rgba(10, 10, 10, 0.7);
+    padding: 4px 0;
   }
 </style>
 </head>
@@ -358,12 +344,12 @@
 <div class="page">
   <h1>📚 الدورات والشهادات</h1>
   <div class="grid">
-    <div class="card">
+    <div class="card" style="margin: 0;">
       <img src="Data Analysis Using Python.jpg" class="cert-img" alt="Data Analysis">
       <h3>تحليل البيانات</h3>
       <p style="font-size: 0.9rem; color: #aaa;">إتقان استخراج الرؤى باستخدام Python</p>
     </div>
-    <div class="card">
+    <div class="card" style="margin: 0;">
       <img src="Cyper Security.jpg" class="cert-img" alt="Cyber Security">
       <h3>الأمن السيبراني</h3>
       <p style="font-size: 0.9rem; color: #aaa;">حماية الأنظمة واكتشاف الثغرات</p>
@@ -428,6 +414,7 @@ setInterval(draw, 33);
 
 let pages = document.querySelectorAll(".page");
 let navBtns = document.querySelectorAll(".nav-btn");
+let mainNav = document.getElementById("mainNav");
 let currentIndex = 0;
 let isAnimating = false;
 
@@ -468,7 +455,7 @@ document.addEventListener('touchend', e => {
   let diffX = startX - endX;
   let diffY = startY - endY;
 
-  if (Math.abs(diffX) > Math.abs(diffY) * 2 && Math.abs(diffX) > 70) {
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
     if (diffX > 0) {
       go(currentIndex + 1); 
     } else {
